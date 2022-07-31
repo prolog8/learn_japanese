@@ -1,3 +1,3 @@
 # learn_japanese
 
-學曶日語短片
+學習日語短片
