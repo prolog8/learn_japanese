@@ -1,0 +1,51 @@
+<video width=400 height=300 id="vid" width="320" height="240" onclick="flip()">
+  <source src="1_panda.mp4" type="video/mp4">
+Your browser does not support the video tag.
+</video>
+<br>
+<div id=thumbs></div>
+<br>
+<div id="panel"></div>
+<input type="text" id="spd" value="0.7"/><br>
+
+
+<script>
+var M1=60,M2=120;
+var arr = [
+	[ 0.1,   6.0, "1"],
+	[ 6.5,   9.0, "2"],
+	[ 9.5,  13.5, "3"],
+];
+
+var s1,s2;
+var vid=document.getElementById("vid");
+var panel=document.getElementById("panel");
+var spd=document.getElementById("spd");
+
+
+vid.controls=false;
+
+for(var i=0; i<arr.length; i++){
+		if(arr[i][0]==0){
+			var b = document.createElement(arr[i][2]);
+			panel.appendChild(b);
+		}else{
+			var b = document.createElement("BUTTON");
+			b.innerHTML = arr[i][2];
+			b.setAttribute("onclick", "playAt("+arr[i][0]+", "+arr[i][1]+")");
+			panel.appendChild(b);
+		}
+}
+
+function playAt(a,b){
+	s1=a, s2=b;
+	vid.playbackRate = spd.value;
+	vid.currentTime = s1;
+	vid.play();
+}
+
+function flip(){ if(vid.paused)vid.play(); else vid.pause() }
+
+vid.addEventListener('timeupdate', ()=>{if(vid.currentTime >= s2)playAt(s1,s2)});
+</script>
+
